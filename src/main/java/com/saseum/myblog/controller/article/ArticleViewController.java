@@ -17,11 +17,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Controller
 public class ArticleViewController {
-    private final ArticleService blogService;
+    private final ArticleService articleService;
 
     @GetMapping("/articles")
     public String getArticles(Model model) {
-        List<ArticleListViewResponse> articles = blogService.findAll().stream()
+        List<ArticleListViewResponse> articles = articleService.findAll().stream()
                 .map(ArticleListViewResponse::new)
                 .toList();
         model.addAttribute("articles", articles);
@@ -31,7 +31,7 @@ public class ArticleViewController {
 
     @GetMapping("/articles/{id}")
     public String getArticle(@PathVariable Long id, Model model) {
-        Article article = blogService.findById(id);
+        Article article = articleService.findById(id);
         model.addAttribute("article", new ArticleViewResponse(article));
 
         return "article";
@@ -42,7 +42,7 @@ public class ArticleViewController {
         if (Objects.isNull(id)) {
             model.addAttribute("article", new ArticleViewResponse());
         } else {
-            Article article = blogService.findById(id);
+            Article article = articleService.findById(id);
             model.addAttribute("article", new ArticleViewResponse(article));
         }
 
