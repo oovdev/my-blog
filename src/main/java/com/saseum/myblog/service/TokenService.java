@@ -15,6 +15,7 @@ public class TokenService {
     private final UserService userService;
 
     public String createNewAccessToken(String refreshToken) {
+        System.out.println("==== refreshToken = " + refreshToken);
         if (!tokenProvider.validateToken(refreshToken)) {
             throw new IllegalArgumentException("unexpected refresh token.");
         }
